@@ -1,0 +1,44 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "NCAA Volleyball Comeback Rates After Losing Set 1",
+    "section": "",
+    "text": "This website uses the same dataset from Milestone 3 to explore how often a volleyball team comes back and wins a match after losing the first set. I also downloaded a larger public volleyball dataset so the homepage includes one graphic built from thousands of observations.\n\nThe data show that teams that lose the first set still win the match in about 21.2% of NCAA Division I matches overall, and that comeback chances rise dramatically as matches extend to four or five sets. The added public dataset below includes 76,756 volleyball matches, so the homepage now features a larger-scale graphic as well.\n\n\n\n\n\n&lt;strong&gt;21.2%&lt;/strong&gt;\nOverall comeback rate after losing set 1\n\n\n&lt;strong&gt;0%&lt;/strong&gt;\n3-set matches\n\n\n&lt;strong&gt;33.2%&lt;/strong&gt;\n4-set matches\n\n\n&lt;strong&gt;51.5%&lt;/strong&gt;\n5-set matches"
+  },
+  {
+    "objectID": "index.html#overview",
+    "href": "index.html#overview",
+    "title": "NCAA Volleyball Comeback Rates After Losing Set 1",
+    "section": "",
+    "text": "This website uses the same dataset from Milestone 3 to explore how often a volleyball team comes back and wins a match after losing the first set. I also downloaded a larger public volleyball dataset so the homepage includes one graphic built from thousands of observations.\n\nThe data show that teams that lose the first set still win the match in about 21.2% of NCAA Division I matches overall, and that comeback chances rise dramatically as matches extend to four or five sets. The added public dataset below includes 76,756 volleyball matches, so the homepage now features a larger-scale graphic as well.\n\n\n\n\n\n&lt;strong&gt;21.2%&lt;/strong&gt;\nOverall comeback rate after losing set 1\n\n\n&lt;strong&gt;0%&lt;/strong&gt;\n3-set matches\n\n\n&lt;strong&gt;33.2%&lt;/strong&gt;\n4-set matches\n\n\n&lt;strong&gt;51.5%&lt;/strong&gt;\n5-set matches"
+  },
+  {
+    "objectID": "index.html#additional-public-data-graphic",
+    "href": "index.html#additional-public-data-graphic",
+    "title": "NCAA Volleyball Comeback Rates After Losing Set 1",
+    "section": "Additional public-data graphic",
+    "text": "Additional public-data graphic\nThis plot uses the downloaded TidyTuesday beach volleyball dataset and is built from 76,756 matches, giving a smooth view of how team attack totals compare between winning and losing sides."
+  },
+  {
+    "objectID": "index.html#match-length-and-comeback-rates",
+    "href": "index.html#match-length-and-comeback-rates",
+    "title": "NCAA Volleyball Comeback Rates After Losing Set 1",
+    "section": "Match length and comeback rates",
+    "text": "Match length and comeback rates\n\n\n\n\n\nMatch length\nTotal matches\nComebacks\nComeback rate (%)\n\n\n\n\n3-set matches\n2301\n0\n0.0\n\n\n4-set matches\n1522\n505\n33.2\n\n\n5-set matches\n1009\n520\n51.5"
+  },
+  {
+    "objectID": "index.html#conference-comparison",
+    "href": "index.html#conference-comparison",
+    "title": "NCAA Volleyball Comeback Rates After Losing Set 1",
+    "section": "Conference comparison",
+    "text": "Conference comparison\nHover over any conference to see the comeback win rate and the number of 4-set vs. 5-set comebacks."
+  },
+  {
+    "objectID": "index.html#takeaway",
+    "href": "index.html#takeaway",
+    "title": "NCAA Volleyball Comeback Rates After Losing Set 1",
+    "section": "Takeaway",
+    "text": "Takeaway\nThe data show a clear pattern: when a team falls behind after the first set, its chance of winning the match depends strongly on how long the match lasts. Longer matches give the trailing team more time to recover, which is why 4-set and especially 5-set matches have much higher comeback rates than short sweeps."
+  }
+]
