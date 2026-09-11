@@ -1,0 +1,194 @@
+---
+title: "NCAA Volleyball Comeback Rates After Losing Set 1"
+author: "Lilly Goode"
+format:
+  html:
+    toc: true
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+## Overview
+
+This website uses the same dataset from Milestone 3 to explore how often a volleyball team comes back and wins a match after losing the first set. I also downloaded a larger public volleyball dataset so the homepage includes one graphic built from thousands of observations.
+
+```{r}
+library(tidyverse)
+library(plotly)
+
+vb_data <- read_csv("../milestone-3/data/ncaa_volleyball_matches.csv", show_col_types = FALSE)
+vb_matches <- read_csv("data/vb_matches.csv", show_col_types = FALSE)
+```
+
+<div class="summary-box">
+The data show that teams that lose the first set still win the match in about 21.2% of NCAA Division I matches overall, and that comeback chances rise dramatically as matches extend to four or five sets. The added public dataset below includes 76,756 volleyball matches, so the homepage now features a larger-scale graphic as well.
+</div>
+
+### Key findings
+
+```{r}
+set_summary <- vb_data |>
+  count(sets_played, name = "matches") |>
+  arrange(sets_played) |>
+  mutate(
+    sets_label = case_when(
+      sets_played == 3 ~ "3-set matches",
+      sets_played == 4 ~ "4-set matches",
+      sets_played == 5 ~ "5-set matches"
+    ),
+    comeback_rate = case_when(
+      sets_played == 3 ~ 0,
+      sets_played == 4 ~ round(mean(vb_data$comeback_win[vb_data$sets_played == 4]) * 100, 1),
+      sets_played == 5 ~ round(mean(vb_data$comeback_win[vb_data$sets_played == 5]) * 100, 1)
+    )
+  )
+
+set_summary <- set_summary |>
+  filter(sets_played %in% c(3, 4, 5))
+```
+
+<div class="card-grid">
+  <div class="card">
+    <strong>21.2%</strong>
+    Overall comeback rate after losing set 1
+  </div>
+  <div class="card">
+    <strong>0%</strong>
+    3-set matches
+  </div>
+  <div class="card">
+    <strong>33.2%</strong>
+    4-set matches
+  </div>
+  <div class="card">
+    <strong>51.5%</strong>
+    5-set matches
+  </div>
+</div>
+
+## Additional public-data graphic
+
+This plot uses the downloaded TidyTuesday beach volleyball dataset and is built from 76,756 matches, giving a smooth view of how team attack totals compare between winning and losing sides.
+
+```{r}
+large_plot_data <- vb_matches |>
+  filter(
+    !is.na(w_p1_tot_attacks),
+    !is.na(w_p2_tot_attacks),
+    !is.na(l_p1_tot_attacks),
+    !is.na(l_p2_tot_attacks),
+    !is.na(w_rank),
+    !is.na(l_rank)
+  ) |>
+  mutate(
+    winner_team_attacks = w_p1_tot_attacks + w_p2_tot_attacks,
+    loser_team_attacks = l_p1_tot_attacks + l_p2_tot_attacks
+  ) |>
+  filter(winner_team_attacks > 0, loser_team_attacks > 0)
+
+ggplot(large_plot_data, aes(x = winner_team_attacks, y = loser_team_attacks)) +
+  geom_bin2d(bins = 40) +
+  scale_fill_viridis_c(option = "magma", direction = -1) +
+  geom_abline(intercept = 0, slope = 1, color = "white", linetype = "dashed", linewidth = 0.8) +
+  labs(
+    title = "Beach Volleyball Matches: Winner vs. Loser Team Attack Totals",
+    subtitle = "Built from 76,756 matches in the public TidyTuesday dataset",
+    x = "Winner team total attacks",
+    y = "Loser team total attacks",
+    fill = "Matches per cell"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title = element_text(face = "bold"),
+    plot.subtitle = element_text(color = "grey40"),
+    panel.grid.minor = element_blank(),
+    axis.title = element_text(face = "bold")
+  )
+```
+
+## Match length and comeback rates
+
+```{r}
+set_length_summary <- vb_data |>
+  group_by(sets_played) |>
+  summarise(
+    total_matches = n(),
+    total_comebacks = sum(comeback_win),
+    comeback_pct = mean(comeback_win) * 100,
+    .groups = "drop"
+  ) |>
+  filter(sets_played %in% c(3, 4, 5)) |>
+  mutate(
+    sets_label = paste0(sets_played, "-set matches"),
+    comeback_line = paste0(round(comeback_pct, 1), "%")
+  )
+
+knitr::kable(
+  set_length_summary |>
+    select(sets_label, total_matches, total_comebacks, comeback_pct),
+  col.names = c("Match length", "Total matches", "Comebacks", "Comeback rate (%)"),
+  digits = 1
+)
+```
+
+## Conference comparison
+
+Hover over any conference to see the comeback win rate and the number of 4-set vs. 5-set comebacks.
+
+```{r}
+conf_summary <- vb_data |>
+  filter(conference_match != "Non-Conference") |>
+  group_by(conference = conference_match) |>
+  summarise(
+    total_matches = n(),
+    comebacks = sum(comeback_win),
+    comeback_pct = mean(comeback_win) * 100,
+    comebacks_4set = sum(comeback_win & sets_played == 4),
+    comebacks_5set = sum(comeback_win & sets_played == 5),
+    .groups = "drop"
+  ) |>
+  filter(total_matches >= 90) |>
+  mutate(
+    tooltip_text = paste0(
+      "<b>", conference, " Conference</b><br>",
+      "Comeback Win Rate: <b>", round(comeback_pct, 1), "%</b><br>",
+      "Total Comebacks: ", comebacks, " of ", total_matches, " matches<br>",
+      "• 4-Set Comebacks (3-1): ", comebacks_4set, "<br>",
+      "• 5-Set Comebacks (3-2): ", comebacks_5set
+    )
+  )
+
+p <- ggplot(conf_summary, aes(
+  x = comeback_pct,
+  y = fct_reorder(conference, comeback_pct),
+  fill = comeback_pct,
+  text = tooltip_text
+)) +
+  geom_col(width = 0.65, show.legend = FALSE) +
+  scale_fill_gradient(low = "#74add1", high = "#08306b") +
+  scale_x_continuous(
+    labels = \(x) paste0(x, "%"),
+    limits = c(0, 32),
+    expand = expansion(mult = c(0, 0.05))
+  ) +
+  labs(
+    title = "NCAA Women’s Volleyball: Comeback Rates After Losing Set 1",
+    x = "Comeback Win Rate (%)",
+    y = NULL
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(
+    plot.title = element_text(face = "bold", size = 13),
+    panel.grid.minor = element_blank(),
+    panel.grid.major.y = element_blank()
+  )
+
+ggplotly(p, tooltip = "text") |>
+  config(displayModeBar = FALSE)
+```
+
+## Takeaway
+
+The data show a clear pattern: when a team falls behind after the first set, its chance of winning the match depends strongly on how long the match lasts. Longer matches give the trailing team more time to recover, which is why 4-set and especially 5-set matches have much higher comeback rates than short sweeps.
