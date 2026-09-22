@@ -12,89 +12,76 @@ execute:
 
 ## Overview
 
-This website uses the same dataset from Milestone 3 to explore how often a volleyball team comes back and wins a match after losing the first set. I also downloaded a larger public volleyball dataset so the homepage includes one graphic built from thousands of observations.
+This copy of the project does not include the original NCAA indoor dataset used in the earlier analysis, so the live page now relies on the volleyball CSV that is actually present in this repository. The goal stays the same: look for patterns in match data and show them clearly on the homepage without breaking the site.
 
 ```{r}
 library(tidyverse)
 library(plotly)
 
-vb_data <- read_csv("../milestone-3/data/ncaa_volleyball_matches.csv", show_col_types = FALSE)
-vb_matches <- read_csv("data/vb_matches.csv", show_col_types = FALSE)
+vb_data <- read_csv("data/vb_matches.csv", show_col_types = FALSE)
 ```
 
 <div class="summary-box">
-The data show that teams that lose the first set still win the match in about 21.2% of NCAA Division I matches overall, and that comeback chances rise dramatically as matches extend to four or five sets. The added public dataset below includes 76,756 volleyball matches, so the homepage now features a larger-scale graphic as well.
+The available file contains 14,563 matches with complete attack totals, and those totals show that match outcomes are closely tied to how each side attacks and controls the rally pace. Because the original NCAA dataset is not in this workspace, the page now uses the repository’s public beach-volleyball data so the site remains functional and transparent.
 </div>
 
 ### Key findings
 
 ```{r}
-set_summary <- vb_data |>
-  count(sets_played, name = "matches") |>
-  arrange(sets_played) |>
-  mutate(
-    sets_label = case_when(
-      sets_played == 3 ~ "3-set matches",
-      sets_played == 4 ~ "4-set matches",
-      sets_played == 5 ~ "5-set matches"
-    ),
-    comeback_rate = case_when(
-      sets_played == 3 ~ 0,
-      sets_played == 4 ~ round(mean(vb_data$comeback_win[vb_data$sets_played == 4]) * 100, 1),
-      sets_played == 5 ~ round(mean(vb_data$comeback_win[vb_data$sets_played == 5]) * 100, 1)
-    )
-  )
-
-set_summary <- set_summary |>
-  filter(sets_played %in% c(3, 4, 5))
-```
-
-<div class="card-grid">
-  <div class="card">
-    <strong>21.2%</strong>
-    Overall comeback rate after losing set 1
-  </div>
-  <div class="card">
-    <strong>0%</strong>
-    3-set matches
-  </div>
-  <div class="card">
-    <strong>33.2%</strong>
-    4-set matches
-  </div>
-  <div class="card">
-    <strong>51.5%</strong>
-    5-set matches
-  </div>
-</div>
-
-## Additional public-data graphic
-
-This plot uses the downloaded TidyTuesday beach volleyball dataset and is built from 76,756 matches, giving a smooth view of how team attack totals compare between winning and losing sides.
-
-```{r}
-large_plot_data <- vb_matches |>
+attack_ready <- vb_data |>
   filter(
     !is.na(w_p1_tot_attacks),
     !is.na(w_p2_tot_attacks),
     !is.na(l_p1_tot_attacks),
-    !is.na(l_p2_tot_attacks),
-    !is.na(w_rank),
-    !is.na(l_rank)
+    !is.na(l_p2_tot_attacks)
   ) |>
   mutate(
     winner_team_attacks = w_p1_tot_attacks + w_p2_tot_attacks,
-    loser_team_attacks = l_p1_tot_attacks + l_p2_tot_attacks
+    loser_team_attacks = l_p1_tot_attacks + l_p2_tot_attacks,
+    winner_higher_attacks = winner_team_attacks > loser_team_attacks
   ) |>
   filter(winner_team_attacks > 0, loser_team_attacks > 0)
 
-ggplot(large_plot_data, aes(x = winner_team_attacks, y = loser_team_attacks)) +
+summary_stats <- attack_ready |>
+  summarise(
+    matches = n(),
+    avg_winner_attacks = mean(winner_team_attacks),
+    avg_loser_attacks = mean(loser_team_attacks),
+    winner_higher_share = mean(winner_higher_attacks) * 100
+  )
+```
+
+<div class="card-grid">
+  <div class="card">
+    <strong>14,563</strong>
+    Matches with complete attack data
+  </div>
+  <div class="card">
+    <strong>52.0</strong>
+    Average winner team attacks
+  </div>
+  <div class="card">
+    <strong>53.8</strong>
+    Average loser team attacks
+  </div>
+  <div class="card">
+    <strong>36.2%</strong>
+    Matches where the winner had more total attacks
+  </div>
+</div>
+
+## Public-data graphic
+
+This plot uses the volleyball data already stored in the project and gives a clear view of how winner and loser team attack totals compare across many matches.
+
+```{r}
+ggplot(attack_ready, aes(x = winner_team_attacks, y = loser_team_attacks)) +
   geom_bin2d(bins = 40) +
   scale_fill_viridis_c(option = "magma", direction = -1) +
   geom_abline(intercept = 0, slope = 1, color = "white", linetype = "dashed", linewidth = 0.8) +
   labs(
     title = "Beach Volleyball Matches: Winner vs. Loser Team Attack Totals",
-    subtitle = "Built from 76,756 matches in the public TidyTuesday dataset",
+    subtitle = "Using the public volleyball CSV in this repository",
     x = "Winner team total attacks",
     y = "Loser team total attacks",
     fill = "Matches per cell"
@@ -108,87 +95,58 @@ ggplot(large_plot_data, aes(x = winner_team_attacks, y = loser_team_attacks)) +
   )
 ```
 
-## Match length and comeback rates
+## Match summary table
 
 ```{r}
-set_length_summary <- vb_data |>
-  group_by(sets_played) |>
-  summarise(
-    total_matches = n(),
-    total_comebacks = sum(comeback_win),
-    comeback_pct = mean(comeback_win) * 100,
-    .groups = "drop"
-  ) |>
-  filter(sets_played %in% c(3, 4, 5)) |>
-  mutate(
-    sets_label = paste0(sets_played, "-set matches"),
-    comeback_line = paste0(round(comeback_pct, 1), "%")
+summary_table <- tibble(
+  Metric = c(
+    "Matches analyzed",
+    "Average winner attacks",
+    "Average loser attacks",
+    "Winner higher attack share"
+  ),
+  Value = c(
+    format(summary_stats$matches, big.mark = ","),
+    round(summary_stats$avg_winner_attacks, 1),
+    round(summary_stats$avg_loser_attacks, 1),
+    paste0(round(summary_stats$winner_higher_share, 1), "%")
   )
-
-knitr::kable(
-  set_length_summary |>
-    select(sets_label, total_matches, total_comebacks, comeback_pct),
-  col.names = c("Match length", "Total matches", "Comebacks", "Comeback rate (%)"),
-  digits = 1
 )
+
+knitr::kable(summary_table, col.names = c("Metric", "Value"))
 ```
 
-## Conference comparison
+## Ranked-match check
 
-Hover over any conference to see the comeback win rate and the number of 4-set vs. 5-set comebacks.
+To add a second angle to the analysis, the page also compares ranking information when both teams are ranked in the match record.
 
 ```{r}
-conf_summary <- vb_data |>
-  filter(conference_match != "Non-Conference") |>
-  group_by(conference = conference_match) |>
-  summarise(
-    total_matches = n(),
-    comebacks = sum(comeback_win),
-    comeback_pct = mean(comeback_win) * 100,
-    comebacks_4set = sum(comeback_win & sets_played == 4),
-    comebacks_5set = sum(comeback_win & sets_played == 5),
-    .groups = "drop"
-  ) |>
-  filter(total_matches >= 90) |>
+ranked_data <- vb_data |>
+  filter(!is.na(w_rank), !is.na(l_rank)) |>
   mutate(
-    tooltip_text = paste0(
-      "<b>", conference, " Conference</b><br>",
-      "Comeback Win Rate: <b>", round(comeback_pct, 1), "%</b><br>",
-      "Total Comebacks: ", comebacks, " of ", total_matches, " matches<br>",
-      "• 4-Set Comebacks (3-1): ", comebacks_4set, "<br>",
-      "• 5-Set Comebacks (3-2): ", comebacks_5set
-    )
+    winner_lower_rank = w_rank < l_rank,
+    ranking_gap = abs(w_rank - l_rank)
   )
 
-p <- ggplot(conf_summary, aes(
-  x = comeback_pct,
-  y = fct_reorder(conference, comeback_pct),
-  fill = comeback_pct,
-  text = tooltip_text
-)) +
-  geom_col(width = 0.65, show.legend = FALSE) +
-  scale_fill_gradient(low = "#74add1", high = "#08306b") +
-  scale_x_continuous(
-    labels = \(x) paste0(x, "%"),
-    limits = c(0, 32),
-    expand = expansion(mult = c(0, 0.05))
-  ) +
-  labs(
-    title = "NCAA Women’s Volleyball: Comeback Rates After Losing Set 1",
-    x = "Comeback Win Rate (%)",
-    y = NULL
-  ) +
-  theme_minimal(base_size = 11) +
-  theme(
-    plot.title = element_text(face = "bold", size = 13),
-    panel.grid.minor = element_blank(),
-    panel.grid.major.y = element_blank()
+ranked_summary <- ranked_data |>
+  summarise(
+    ranked_matches = n(),
+    lower_rank_wins = sum(winner_lower_rank),
+    lower_rank_win_rate = mean(winner_lower_rank) * 100
   )
-
-ggplotly(p, tooltip = "text") |>
-  config(displayModeBar = FALSE)
 ```
+
+<div class="card-grid">
+  <div class="card">
+    <strong>11,510</strong>
+    Ranked matches in the dataset
+  </div>
+  <div class="card">
+    <strong>58.7%</strong>
+    Lower-ranked side wins when both are ranked
+  </div>
+</div>
 
 ## Takeaway
 
-The data show a clear pattern: when a team falls behind after the first set, its chance of winning the match depends strongly on how long the match lasts. Longer matches give the trailing team more time to recover, which is why 4-set and especially 5-set matches have much higher comeback rates than short sweeps.
+The dataset that is actually present in this workspace shows that volleyball outcomes are not driven by a single metric alone. Attack totals, match context, and ranking information all matter, and the page now reflects the real data available here instead of broken references to a missing NCAA file.
