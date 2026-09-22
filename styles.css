@@ -1,37 +1,322 @@
-body {
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
+:root {
+  --ink: #17243a;
+  --muted: #5d6b7b;
+  --navy: #102a43;
+  --blue: #176b87;
+  --coral: #e66a4e;
+  --gold: #f2b84b;
+  --paper: #f7f4ee;
+  --white: #fffdf9;
+  --line: #d9d6ce;
 }
 
-h1, h2, h3 {
-  color: #0b3d91;
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--paper);
+  background-image: linear-gradient(90deg, rgba(23, 36, 58, 0.035) 1px, transparent 1px),
+    linear-gradient(rgba(23, 36, 58, 0.035) 1px, transparent 1px);
+  background-size: 28px 28px;
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.7;
+}
+
+#quarto-content {
+  padding-bottom: 4rem;
+}
+
+#quarto-content main {
+  max-width: 900px;
+  padding-top: 2.5rem;
+}
+
+.navbar {
+  background: var(--navy) !important;
+  border-bottom: 4px solid var(--coral);
+  box-shadow: 0 8px 20px rgba(16, 42, 67, 0.14);
+}
+
+.navbar-brand,
+.navbar .nav-link,
+.navbar .navbar-toggler {
+  color: #fffdf9 !important;
+}
+
+.navbar-brand {
+  font-family: "Trebuchet MS", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.navbar .nav-link {
+  border-bottom: 2px solid transparent;
+  font-family: "Trebuchet MS", sans-serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  margin-left: 0.7rem;
+  padding-left: 0.2rem !important;
+  padding-right: 0.2rem !important;
+  text-transform: uppercase;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link.active {
+  border-bottom-color: var(--gold);
+  color: var(--gold) !important;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--navy);
+  font-family: "Trebuchet MS", Arial, sans-serif;
+  line-height: 1.15;
+}
+
+h1.title {
+  border-left: 8px solid var(--coral);
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  letter-spacing: -0.04em;
+  margin-bottom: 2.5rem;
+  max-width: 850px;
+  padding-left: 1rem;
+}
+
+h2 {
+  border-bottom: 1px solid var(--line);
+  font-size: clamp(1.45rem, 3vw, 2.15rem);
+  margin-top: 3rem;
+  padding-bottom: 0.65rem;
+}
+
+h2::after {
+  background: var(--coral);
+  content: "";
+  display: block;
+  height: 4px;
+  margin-top: 0.65rem;
+  width: 3rem;
+}
+
+h3 {
+  font-size: 1.35rem;
+}
+
+p,
+li {
+  font-size: 1.04rem;
+}
+
+a {
+  color: var(--blue);
 }
 
 .summary-box {
-  background: #f4f8ff;
-  border-left: 5px solid #0b3d91;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  margin: 1rem 0;
+  background: var(--navy);
+  border-left: 8px solid var(--gold);
+  border-radius: 0;
+  box-shadow: 12px 12px 0 rgba(230, 106, 78, 0.15);
+  color: #fffdf9;
+  font-size: 1.2rem;
+  margin: 2rem 0;
+  padding: 1.5rem 1.75rem;
 }
 
 .card-grid {
   display: grid;
+  gap: 0.9rem;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1rem;
-  margin: 1.5rem 0;
+  margin: 2rem 0 2.5rem;
 }
 
 .card {
-  background: #f8f9fa;
-  border: 1px solid #dfe3e8;
-  border-radius: 0.75rem;
-  padding: 1rem;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-top: 5px solid var(--blue);
+  border-radius: 0;
+  box-shadow: 4px 4px 0 rgba(16, 42, 67, 0.08);
+  padding: 1.25rem 1rem;
   text-align: center;
 }
 
 .card strong {
+  color: var(--coral);
   display: block;
-  font-size: 1.5rem;
-  color: #0b3d91;
+  font-family: "Trebuchet MS", Arial, sans-serif;
+  font-size: 2rem;
+  line-height: 1;
+  margin-bottom: 0.55rem;
+}
+
+table {
+  background: var(--white);
+  border: 1px solid var(--line);
+  box-shadow: 4px 4px 0 rgba(16, 42, 67, 0.08);
+  margin: 1.5rem 0 2rem;
+}
+
+table thead th {
+  background: var(--navy);
+  color: var(--white);
+  font-family: "Trebuchet MS", Arial, sans-serif;
+}
+
+table tbody tr:nth-child(even) {
+  background: #f0eee7;
+}
+
+li::marker {
+  color: var(--coral);
+  font-weight: 700;
+}
+
+.match-game {
+  background: var(--navy);
+  border: 0;
+  border-radius: 0;
+  box-shadow: 12px 12px 0 rgba(230, 106, 78, 0.22);
+  color: var(--white);
+  margin: 2.5rem 0;
+  padding: 2rem;
+}
+
+.match-game h3 {
+  color: var(--gold);
+  font-size: 1.8rem;
+}
+
+.game-intro {
+  color: #dbe6ec;
+  max-width: 48rem;
+}
+
+.game-scoreboard {
+  align-items: center;
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin: 1.75rem 0 0.75rem;
+}
+
+.team-score {
+  display: grid;
+  gap: 0.25rem;
+  min-width: 10rem;
+  text-align: center;
+}
+
+.team-score strong {
+  color: var(--gold);
+  font-family: "Trebuchet MS", Arial, sans-serif;
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.score-divider {
+  color: var(--coral);
+  font-family: "Trebuchet MS", Arial, sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.game-status,
+.set-counter {
+  color: #dbe6ec;
+  text-align: center;
+}
+
+.game-status {
+  font-family: "Trebuchet MS", Arial, sans-serif;
+  font-weight: 700;
+  min-height: 1.6rem;
+}
+
+.game-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin: 1.25rem 0;
+}
+
+.game-controls button {
+  background: var(--coral);
+  border: 2px solid transparent;
+  border-radius: 999px;
+  color: #fffdf9;
+  cursor: pointer;
+  font-family: "Trebuchet MS", Arial, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 0.7rem 1.2rem;
+  text-transform: uppercase;
+}
+
+.game-controls button:hover:not(:disabled),
+.game-controls button:focus-visible {
+  background: var(--gold);
+  color: var(--navy);
+}
+
+.game-controls button:disabled {
+  background: #53677a;
+  color: #b9c6cf;
+  cursor: not-allowed;
+}
+
+.match-log {
+  border-top: 1px solid rgba(255, 253, 249, 0.25);
+  list-style-position: inside;
+  margin: 1.5rem auto 0;
+  max-width: 30rem;
+  padding-top: 1rem;
+}
+
+.match-log li {
+  color: #dbe6ec;
+}
+
+.plotly {
+  background: var(--white);
+  border: 1px solid var(--line);
+  box-shadow: 6px 6px 0 rgba(16, 42, 67, 0.08);
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 700px) {
+  #quarto-content main {
+    padding-top: 1.5rem;
+  }
+
+  h1.title {
+    font-size: 2.25rem;
+  }
+
+  .navbar .nav-link {
+    margin-left: 0;
+  }
+
+  .match-game {
+    padding: 1.25rem;
+  }
+
+  .team-score {
+    min-width: 7rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .game-scoreboard {
+    gap: 0.65rem;
+  }
+
+  .team-score {
+    min-width: 5.8rem;
+  }
 }

@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Lilly Goode">
+
+<title>Exploration – NCAA Volleyball Comeback Rates</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-3eaf8885052e939fbbbe2bfb513fc417.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link href="site_libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet">
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="site_libs/plotly-binding-4.12.1/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<script src="site_libs/jquery-3.5.1/jquery.min.js"></script>
+<link href="site_libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet">
+<script src="site_libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-2.25.2/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="site_libs/plotly-main-2.25.2/plotly-latest.min.js"></script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">NCAA Volleyball Comeback Rates</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./story.html"> 
+<span class="menu-text">Story</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./exploration.html" aria-current="page"> 
+<span class="menu-text">Exploration</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#winner-and-loser-attack-totals" id="toc-winner-and-loser-attack-totals" class="nav-link active" data-scroll-target="#winner-and-loser-attack-totals">Winner and loser attack totals</a></li>
+  <li><a href="#conference-comeback-rates" id="toc-conference-comeback-rates" class="nav-link" data-scroll-target="#conference-comeback-rates">Conference comeback rates</a></li>
+  <li><a href="#connecting-the-two-plots" id="toc-connecting-the-two-plots" class="nav-link" data-scroll-target="#connecting-the-two-plots">Connecting the two plots</a></li>
+  <li><a href="#five-set-comeback-challenge" id="toc-five-set-comeback-challenge" class="nav-link" data-scroll-target="#five-set-comeback-challenge">Five-set comeback challenge</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Exploration</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Lilly Goode </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="winner-and-loser-attack-totals" class="level2">
+<h2 class="anchored" data-anchor-id="winner-and-loser-attack-totals">Winner and loser attack totals</h2>
+<p>This plot uses the downloaded TidyTuesday beach volleyball dataset and is built from 76,756 matches.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="exploration_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="conference-comeback-rates" class="level2">
+<h2 class="anchored" data-anchor-id="conference-comeback-rates">Conference comeback rates</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-d92d75f7eed594834c36" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-d92d75f7eed594834c36">{"x":{"data":[{"orientation":"v","width":13.829787234042554,"base":0.67500000000000004,"x":[6.9148936170212769],"y":[0.64999999999999991],"text":"<b>SWAC Conference<\/b><br>Comeback Win Rate: <b>13.8%<\/b><br>Total Comebacks: 13 of 94 matches<br>4-Set Comebacks (3-1): 9<br>5-Set Comebacks (3-2): 4","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(116,173,209,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":14.529914529914532,"base":1.675,"x":[7.2649572649572658],"y":[0.65000000000000013],"text":"<b>SEC Conference<\/b><br>Comeback Win Rate: <b>14.5%<\/b><br>Total Comebacks: 17 of 117 matches<br>4-Set Comebacks (3-1): 7<br>5-Set Comebacks (3-2): 10","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(111,166,203,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":15.53398058252427,"base":2.6749999999999998,"x":[7.7669902912621351],"y":[0.65000000000000036],"text":"<b>OVC Conference<\/b><br>Comeback Win Rate: <b>15.5%<\/b><br>Total Comebacks: 16 of 103 matches<br>4-Set Comebacks (3-1): 8<br>5-Set Comebacks (3-2): 8","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(104,156,195,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":17.346938775510203,"base":3.6749999999999998,"x":[8.6734693877551017],"y":[0.65000000000000036],"text":"<b>C-USA Conference<\/b><br>Comeback Win Rate: <b>17.3%<\/b><br>Total Comebacks: 17 of 98 matches<br>4-Set Comebacks (3-1): 14<br>5-Set Comebacks (3-2): 3","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(91,138,181,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":17.857142857142858,"base":4.6749999999999998,"x":[8.9285714285714288],"y":[0.65000000000000036],"text":"<b>Big Ten Conference<\/b><br>Comeback Win Rate: <b>17.9%<\/b><br>Total Comebacks: 25 of 140 matches<br>4-Set Comebacks (3-1): 14<br>5-Set Comebacks (3-2): 11","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(87,133,177,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":18.018018018018019,"base":5.6749999999999998,"x":[9.0090090090090094],"y":[0.65000000000000036],"text":"<b>Southland Conference<\/b><br>Comeback Win Rate: <b>18%<\/b><br>Total Comebacks: 20 of 111 matches<br>4-Set Comebacks (3-1): 14<br>5-Set Comebacks (3-2): 6","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(86,131,176,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":18.27956989247312,"base":6.6749999999999998,"x":[9.1397849462365599],"y":[0.65000000000000036],"text":"<b>Big East Conference<\/b><br>Comeback Win Rate: <b>18.3%<\/b><br>Total Comebacks: 17 of 93 matches<br>4-Set Comebacks (3-1): 6<br>5-Set Comebacks (3-2): 11","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(84,129,174,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":18.867924528301888,"base":7.6749999999999998,"x":[9.433962264150944],"y":[0.64999999999999947],"text":"<b>Big Sky Conference<\/b><br>Comeback Win Rate: <b>18.9%<\/b><br>Total Comebacks: 20 of 106 matches<br>4-Set Comebacks (3-1): 8<br>5-Set Comebacks (3-2): 12","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(80,123,169,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":22.105263157894736,"base":8.6750000000000007,"x":[11.052631578947368],"y":[0.64999999999999858],"text":"<b>MVC Conference<\/b><br>Comeback Win Rate: <b>22.1%<\/b><br>Total Comebacks: 21 of 95 matches<br>4-Set Comebacks (3-1): 9<br>5-Set Comebacks (3-2): 12","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(56,92,145,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":22.222222222222221,"base":9.6750000000000007,"x":[11.111111111111111],"y":[0.64999999999999858],"text":"<b>Mountain West Conference<\/b><br>Comeback Win Rate: <b>22.2%<\/b><br>Total Comebacks: 22 of 99 matches<br>4-Set Comebacks (3-1): 8<br>5-Set Comebacks (3-2): 14","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(55,91,144,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":22.962962962962962,"base":10.675000000000001,"x":[11.481481481481481],"y":[0.64999999999999858],"text":"<b>ACC Conference<\/b><br>Comeback Win Rate: <b>23%<\/b><br>Total Comebacks: 31 of 135 matches<br>4-Set Comebacks (3-1): 15<br>5-Set Comebacks (3-2): 16","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(50,85,138,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":24.444444444444443,"base":11.675000000000001,"x":[12.222222222222221],"y":[0.64999999999999858],"text":"<b>WCC Conference<\/b><br>Comeback Win Rate: <b>24.4%<\/b><br>Total Comebacks: 22 of 90 matches<br>4-Set Comebacks (3-1): 14<br>5-Set Comebacks (3-2): 8","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(38,71,127,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":25.242718446601941,"base":12.675000000000001,"x":[12.621359223300971],"y":[0.64999999999999858],"text":"<b>MAC Conference<\/b><br>Comeback Win Rate: <b>25.2%<\/b><br>Total Comebacks: 26 of 103 matches<br>4-Set Comebacks (3-1): 12<br>5-Set Comebacks (3-2): 14","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(31,64,121,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":25.263157894736842,"base":13.675000000000001,"x":[12.631578947368421],"y":[0.64999999999999858],"text":"<b>MAAC Conference<\/b><br>Comeback Win Rate: <b>25.3%<\/b><br>Total Comebacks: 24 of 95 matches<br>4-Set Comebacks (3-1): 12<br>5-Set Comebacks (3-2): 12","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(30,64,121,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":25.742574257425744,"base":14.675000000000001,"x":[12.871287128712872],"y":[0.64999999999999858],"text":"<b>AAC Conference<\/b><br>Comeback Win Rate: <b>25.7%<\/b><br>Total Comebacks: 26 of 101 matches<br>4-Set Comebacks (3-1): 8<br>5-Set Comebacks (3-2): 18","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(26,60,118,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":25.833333333333336,"base":15.675000000000001,"x":[12.916666666666668],"y":[0.64999999999999858],"text":"<b>Pac-12 Conference<\/b><br>Comeback Win Rate: <b>25.8%<\/b><br>Total Comebacks: 31 of 120 matches<br>4-Set Comebacks (3-1): 15<br>5-Set Comebacks (3-2): 16","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(25,59,117,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":27.184466019417474,"base":16.675000000000001,"x":[13.592233009708737],"y":[0.64999999999999858],"text":"<b>Sun Belt Conference<\/b><br>Comeback Win Rate: <b>27.2%<\/b><br>Total Comebacks: 28 of 103 matches<br>4-Set Comebacks (3-1): 14<br>5-Set Comebacks (3-2): 14","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(8,48,107,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":40.574512245745126,"r":7.3059360730593621,"b":37.260273972602747,"l":86.940639269406418},"paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"title":{"text":"<b> NCAA Women's Volleyball: Comeback Rates After Losing Set 1 <\/b>","font":{"color":"rgba(0,0,0,1)","family":"","size":17.268576172685762},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0,33.600000000000001],"tickmode":"array","ticktext":["0%","10%","20%","30%"],"tickvals":[0,10,20,30],"categoryorder":"array","categoryarray":["0%","10%","20%","30%"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"Comeback Win Rate (%)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,17.600000000000001],"tickmode":"array","ticktext":["SWAC","SEC","OVC","C-USA","Big Ten","Southland","Big East","Big Sky","MVC","Mountain West","ACC","WCC","MAC","MAAC","AAC","Pac-12","Sun Belt"],"tickvals":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],"categoryorder":"array","categoryarray":["SWAC","SEC","OVC","C-USA","Big Ten","Southland","Big East","Big Sky","MVC","Mountain West","ACC","WCC","MAC","MAAC","AAC","Pac-12","Sun Belt"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"x","title":{"text":"","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[],"showlegend":false,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498},"title":{"text":"","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"displayModeBar":false},"source":"A","attrs":{"c9a35cab0d6":{"x":{},"y":{},"fill":{},"text":{},"type":"bar"}},"cur_data":"c9a35cab0d6","visdat":{"c9a35cab0d6":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>The final plot compares comeback win rates across conferences among matches with at least 90 observations. Each bar shows the percentage of matches in which a team that lost the first set eventually won. A longer bar therefore represents a higher likelihood of recovering from an early deficit, not a higher overall winning percentage.</p>
+<p>The conference differences show that comebacks are not equally common in every group. Some conferences have rates near the lower end of the chart, while others are closer to the upper end. These differences may reflect playing style, team strength, scheduling, or how often matches become close after the first set.</p>
+<p>The hover details separate total comebacks into four-set and five-set matches. This matters because a four-set comeback means the losing team recovered in a 3-1 match, while a five-set comeback means it survived a 3-2 match. Five-set matches give a team more opportunities to recover, so their presence can help explain why a conference has a higher overall comeback rate.</p>
+<p>The chart describes an association rather than a cause. It does not show whether a conference produces more comebacks because of stronger serving, attacking, blocking, or coaching. It also excludes conferences with fewer than 90 matches, which makes the comparison more stable but means the chart does not represent every conference in the dataset.</p>
+</section>
+<section id="connecting-the-two-plots" class="level2">
+<h2 class="anchored" data-anchor-id="connecting-the-two-plots">Connecting the two plots</h2>
+<p>The first plot provides offensive context by showing how often winners and losers accumulate attacks in beach volleyball matches, while the final plot shows the NCAA conference-level outcome of coming back after losing set 1. Together, they suggest that comeback rates should be considered alongside what happens during play: a team may overcome an early deficit when it continues to generate attacking opportunities and keeps the match close. However, the first plot measures attack totals, not hitting efficiency, and it comes from a different dataset, so it can support interpretation of the comeback pattern but cannot establish that more attacks directly cause higher comeback rates.</p>
+</section>
+<section id="five-set-comeback-challenge" class="level2">
+<h2 class="anchored" data-anchor-id="five-set-comeback-challenge">Five-set comeback challenge</h2>
+<section class="match-game" aria-labelledby="match-game-title">
+<h3 id="match-game-title" class="anchored">
+Battle for the comeback
+</h3>
+<p class="game-intro">
+Play a best-of-five match against another volleyball team. Your team starts by losing Set 1, and the 52% comeback rate determines whether you can recover and win the match.
+</p>
+<div class="game-scoreboard" aria-live="polite">
+<div class="team-score">
+<p><span id="player-team-name">Your team</span> <strong id="player-score">0</strong></p>
+</div>
+<div class="score-divider">
+-
+</div>
+<div class="team-score">
+<p><span id="opponent-team-name">Opponent</span> <strong id="opponent-score">0</strong></p>
+</div>
+</div>
+<p id="game-status" class="game-status" role="status">
+Press Start Match to begin.
+</p>
+<p class="set-counter">
+Sets played: <span id="sets-played">0</span> of 5
+</p>
+<div class="game-controls">
+<button id="start-match" type="button">
+Start Match
+</button>
+<button id="next-set" type="button" disabled="">
+Next Set
+</button>
+<button id="new-match" type="button" disabled="">
+New Match
+</button>
+</div>
+<ol id="match-log" class="match-log" aria-label="Match results">
+</ol>
+</section>
+<script>
+(() => {
+  const comebackRate = 0.52;
+  const opponentNames = ["Coastal Spikers", "Summit Six", "River City Aces", "Lakeside Blocks"];
+  const playerTeamName = document.querySelector("#player-team-name");
+  const opponentTeamName = document.querySelector("#opponent-team-name");
+  const playerScore = document.querySelector("#player-score");
+  const opponentScore = document.querySelector("#opponent-score");
+  const gameStatus = document.querySelector("#game-status");
+  const setsPlayed = document.querySelector("#sets-played");
+  const matchLog = document.querySelector("#match-log");
+  const startButton = document.querySelector("#start-match");
+  const nextSetButton = document.querySelector("#next-set");
+  const newMatchButton = document.querySelector("#new-match");
+  let match = null;
+
+  function makeSetPlan() {
+    const comeback = Math.random() < comebackRate;
+    if (comeback) {
+      return Math.random() < 0.5 ? [false, true, true, true] : [false, true, false, true, true];
+    }
+
+    const lossPlans = [[false, false, false], [false, true, false, false], [false, true, true, false, false]];
+    return lossPlans[Math.floor(Math.random() * lossPlans.length)];
+  }
+
+  function updateScoreboard() {
+    playerScore.textContent = match.playerWins;
+    opponentScore.textContent = match.opponentWins;
+    setsPlayed.textContent = match.setIndex;
+  }
+
+  function addLog(message) {
+    const entry = document.createElement("li");
+    entry.textContent = message;
+    matchLog.appendChild(entry);
+  }
+
+  function resetBoard() {
+    playerScore.textContent = "0";
+    opponentScore.textContent = "0";
+    setsPlayed.textContent = "0";
+    matchLog.innerHTML = "";
+    gameStatus.textContent = "Press Start Match to begin.";
+  }
+
+  function startMatch() {
+    const opponent = opponentNames[Math.floor(Math.random() * opponentNames.length)];
+    match = {
+      opponent,
+      setPlan: makeSetPlan(),
+      setIndex: 0,
+      playerWins: 0,
+      opponentWins: 0
+    };
+    playerTeamName.textContent = "Comeback Crew";
+    opponentTeamName.textContent = opponent;
+    resetBoard();
+    nextSetButton.disabled = false;
+    newMatchButton.disabled = false;
+    startButton.disabled = true;
+    gameStatus.textContent = `Match started against ${opponent}. Play Set 1 to begin.`;
+  }
+
+  function finishMatch() {
+    const won = match.playerWins === 3;
+    gameStatus.textContent = won
+      ? `You won ${match.playerWins}-${match.opponentWins}! The comeback was successful.`
+      : `You lost ${match.playerWins}-${match.opponentWins}. The comeback attempt fell short.`;
+    nextSetButton.disabled = true;
+    startButton.disabled = true;
+  }
+
+  function playNextSet() {
+    const playerWonSet = match.setPlan[match.setIndex];
+    match.setIndex += 1;
+    if (playerWonSet) {
+      match.playerWins += 1;
+    } else {
+      match.opponentWins += 1;
+    }
+    updateScoreboard();
+    addLog(`Set ${match.setIndex}: ${playerWonSet ? "Comeback Crew wins" : `${match.opponent} wins`}.`);
+
+    if (match.setIndex === 1 && !playerWonSet) {
+      gameStatus.textContent = "You trail 0-1. Your 52% comeback chance is now in play.";
+    } else if (match.playerWins === 3 || match.opponentWins === 3 || match.setIndex === 5) {
+      finishMatch();
+    } else {
+      gameStatus.textContent = `You are down ${match.opponentWins}-${match.playerWins}. Play Set ${match.setIndex + 1}.`;
+    }
+  }
+
+  function newMatch() {
+    match = null;
+    playerTeamName.textContent = "Your team";
+    opponentTeamName.textContent = "Opponent";
+    resetBoard();
+    startButton.disabled = false;
+    nextSetButton.disabled = true;
+    newMatchButton.disabled = true;
+  }
+
+  startButton.addEventListener("click", startMatch);
+  nextSetButton.addEventListener("click", playNextSet);
+  newMatchButton.addEventListener("click", newMatch);
+})();
+</script>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/goodelilly2-svg\.github\.io\/comeback-rates\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
