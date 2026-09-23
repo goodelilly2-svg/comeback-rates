@@ -4,14 +4,21 @@
     "href": "index.html",
     "title": "NCAA Volleyball Comeback Rates",
     "section": "",
-    "text": "This site measures how often an NCAA volleyball team wins after losing the first set, then compares that result with attack totals from a larger beach-volleyball dataset.\n\nTeams that lose the first set still win about 21.2% of NCAA Division I matches overall. Comeback chances rise dramatically as matches extend to four or five sets.\n\n\n\n&lt;strong&gt;21.2%&lt;/strong&gt;\nOverall comeback rate after losing set 1\n\n\n&lt;strong&gt;0%&lt;/strong&gt;\n3-set matches\n\n\n&lt;strong&gt;33.2%&lt;/strong&gt;\n4-set matches\n\n\n&lt;strong&gt;51.5%&lt;/strong&gt;\n5-set matches"
+    "text": "Volleyball analytics\n\n\n\nThis project looks at NCAA Division I volleyball through that question. It tracks how often a team recovers from an early deficit and connects that result to the longer story of match length and offensive totals.\n\n\nThis site measures how often an NCAA volleyball team wins after losing the first set and uses total attack volume to put that result in context. The big takeaway is simple: the comeback is possible, but it is much more common in longer matches.\n\nShort version: teams that lose set 1 still win about 21.2% of NCAA matches overall, and the comeback rate climbs to 33.2% in four-set matches and 51.5% in five-set matches."
   },
   {
     "objectID": "index.html#home",
     "href": "index.html#home",
     "title": "NCAA Volleyball Comeback Rates",
     "section": "",
-    "text": "This site measures how often an NCAA volleyball team wins after losing the first set, then compares that result with attack totals from a larger beach-volleyball dataset.\n\nTeams that lose the first set still win about 21.2% of NCAA Division I matches overall. Comeback chances rise dramatically as matches extend to four or five sets.\n\n\n\n&lt;strong&gt;21.2%&lt;/strong&gt;\nOverall comeback rate after losing set 1\n\n\n&lt;strong&gt;0%&lt;/strong&gt;\n3-set matches\n\n\n&lt;strong&gt;33.2%&lt;/strong&gt;\n4-set matches\n\n\n&lt;strong&gt;51.5%&lt;/strong&gt;\n5-set matches"
+    "text": "Volleyball analytics\n\n\n\nThis project looks at NCAA Division I volleyball through that question. It tracks how often a team recovers from an early deficit and connects that result to the longer story of match length and offensive totals.\n\n\nThis site measures how often an NCAA volleyball team wins after losing the first set and uses total attack volume to put that result in context. The big takeaway is simple: the comeback is possible, but it is much more common in longer matches.\n\nShort version: teams that lose set 1 still win about 21.2% of NCAA matches overall, and the comeback rate climbs to 33.2% in four-set matches and 51.5% in five-set matches."
+  },
+  {
+    "objectID": "index.html#total-attacks-by-match-outcome",
+    "href": "index.html#total-attacks-by-match-outcome",
+    "title": "NCAA Volleyball Comeback Rates",
+    "section": "Total attacks by match outcome",
+    "text": "Total attacks by match outcome\n\n\n\n\n\n\nAcross the full comparison dataset, the winning team recorded 757,720 total attacks while the losing team recorded 784,123. The chart shows the overall scale of attack volume by match outcome, even though attack totals alone do not explain the final result."
   },
   {
     "objectID": "index.html#match-length-and-comeback-rates",
@@ -21,46 +28,25 @@
     "text": "Match length and comeback rates\n\n\n\n\n\nMatch length\nTotal matches\nComebacks\nComeback rate (%)\n\n\n\n\n3-set matches\n2301\n0\n0.0\n\n\n4-set matches\n1522\n505\n33.2\n\n\n5-set matches\n1009\n520\n51.5"
   },
   {
-    "objectID": "index.html#attack-totals-in-76756-matches",
-    "href": "index.html#attack-totals-in-76756-matches",
+    "objectID": "index.html#what-this-tells-us",
+    "href": "index.html#what-this-tells-us",
     "title": "NCAA Volleyball Comeback Rates",
-    "section": "Attack totals in 76,756 matches",
-    "text": "Attack totals in 76,756 matches\nThe plot below uses the same 76,756-match beach-volleyball dataset as the Exploration tab. Each cell counts matches with a given combination of winner and loser attack totals. The dashed line marks equal totals: cells above it are matches where the loser recorded more attacks than the winner."
-  },
-  {
-    "objectID": "index.html#what-the-data-say",
-    "href": "index.html#what-the-data-say",
-    "title": "NCAA Volleyball Comeback Rates",
-    "section": "What the data say",
-    "text": "What the data say\nAmong the NCAA matches in this project, 21.2% ended in a comeback after a team lost the first set. Match length explains most of the headline difference: three-set matches cannot contain a comeback, while the rate is 33.2% in four-set matches and 51.5% in five-set matches.\nThe attack plot answers a different question. It shows that winners and losers often finish with similar attack totals, but it does not measure comeback rates or prove that more attacks cause a win. It comes from beach volleyball, whereas the comeback analysis uses NCAA volleyball matches, so the two plots should be read as separate evidence rather than combined into one result.\nThe denominators matter: the NCAA table contains 230 three-set matches, 152 four-set matches, and 100 five-set matches. The percentages describe this sample; they are not a causal estimate of what makes a team recover."
+    "section": "What this tells us",
+    "text": "What this tells us\nAmong the NCAA matches in this project, 21.2% ended in a comeback after a team lost the first set. Match length explains most of the headline difference: three-set matches cannot contain a comeback, while the rate rises to 33.2% in four-set matches and 51.5% in five-set matches.\nThe total-attacks chart helps connect the big-picture story to the comeback question. In the broader comparison data, the winning team recorded 757,720 attacks and the losing team recorded 784,123, which suggests that attack volume is high in many matches regardless of the final result. That makes sense for volleyball: even teams that lose can still generate a large number of attacks, especially in longer matches where the score remains competitive. This means more attacks are not the same as a higher comeback rate, but they do show that the match often stays open long enough for momentum to shift.\nThe NCAA comeback analysis remains the clearest evidence in this project. A longer match gives a trailing team more chances to adjust, recover, and eventually win, while attack totals alone describe the flow of the game rather than the probability of a comeback itself. The denominators matter here as well: the NCAA table contains 230 three-set matches, 152 four-set matches, and 100 five-set matches. These percentages describe this sample and should be interpreted as an observed pattern, not as a causal estimate of what makes a team recover."
   },
   {
     "objectID": "exploration.html",
     "href": "exploration.html",
     "title": "Exploration",
     "section": "",
-    "text": "This plot uses the downloaded TidyTuesday beach volleyball dataset and is built from 76,756 matches."
-  },
-  {
-    "objectID": "exploration.html#winner-and-loser-attack-totals",
-    "href": "exploration.html#winner-and-loser-attack-totals",
-    "title": "Exploration",
-    "section": "",
-    "text": "This plot uses the downloaded TidyTuesday beach volleyball dataset and is built from 76,756 matches."
+    "text": "The final plot compares comeback win rates across conferences among matches with at least 90 observations. Each bar shows the percentage of matches in which a team that lost the first set eventually won. A longer bar therefore represents a higher likelihood of recovering from an early deficit, not a higher overall winning percentage.\nThe conference differences show that comebacks are not equally common in every group. Some conferences have rates near the lower end of the chart, while others are closer to the upper end. These differences may reflect playing style, team strength, scheduling, or how often matches become close after the first set.\nThe hover details separate total comebacks into four-set and five-set matches. This matters because a four-set comeback means the losing team recovered in a 3-1 match, while a five-set comeback means it survived a 3-2 match. Five-set matches give a team more opportunities to recover, so their presence can help explain why a conference has a higher overall comeback rate.\nThe chart describes an association rather than a cause. It does not show whether a conference produces more comebacks because of stronger serving, attacking, blocking, or coaching. It also excludes conferences with fewer than 90 matches, which makes the comparison more stable but means the chart does not represent every conference in the dataset."
   },
   {
     "objectID": "exploration.html#conference-comeback-rates",
     "href": "exploration.html#conference-comeback-rates",
     "title": "Exploration",
-    "section": "Conference comeback rates",
-    "text": "Conference comeback rates\n\n\n\n\n\n\nThe final plot compares comeback win rates across conferences among matches with at least 90 observations. Each bar shows the percentage of matches in which a team that lost the first set eventually won. A longer bar therefore represents a higher likelihood of recovering from an early deficit, not a higher overall winning percentage.\nThe conference differences show that comebacks are not equally common in every group. Some conferences have rates near the lower end of the chart, while others are closer to the upper end. These differences may reflect playing style, team strength, scheduling, or how often matches become close after the first set.\nThe hover details separate total comebacks into four-set and five-set matches. This matters because a four-set comeback means the losing team recovered in a 3-1 match, while a five-set comeback means it survived a 3-2 match. Five-set matches give a team more opportunities to recover, so their presence can help explain why a conference has a higher overall comeback rate.\nThe chart describes an association rather than a cause. It does not show whether a conference produces more comebacks because of stronger serving, attacking, blocking, or coaching. It also excludes conferences with fewer than 90 matches, which makes the comparison more stable but means the chart does not represent every conference in the dataset."
-  },
-  {
-    "objectID": "exploration.html#connecting-the-two-plots",
-    "href": "exploration.html#connecting-the-two-plots",
-    "title": "Exploration",
-    "section": "Connecting the two plots",
-    "text": "Connecting the two plots\nThe first plot provides offensive context by showing how often winners and losers accumulate attacks in beach volleyball matches, while the final plot shows the NCAA conference-level outcome of coming back after losing set 1. Together, they suggest that comeback rates should be considered alongside what happens during play: a team may overcome an early deficit when it continues to generate attacking opportunities and keeps the match close. However, the first plot measures attack totals, not hitting efficiency, and it comes from a different dataset, so it can support interpretation of the comeback pattern but cannot establish that more attacks directly cause higher comeback rates."
+    "section": "",
+    "text": "The final plot compares comeback win rates across conferences among matches with at least 90 observations. Each bar shows the percentage of matches in which a team that lost the first set eventually won. A longer bar therefore represents a higher likelihood of recovering from an early deficit, not a higher overall winning percentage.\nThe conference differences show that comebacks are not equally common in every group. Some conferences have rates near the lower end of the chart, while others are closer to the upper end. These differences may reflect playing style, team strength, scheduling, or how often matches become close after the first set.\nThe hover details separate total comebacks into four-set and five-set matches. This matters because a four-set comeback means the losing team recovered in a 3-1 match, while a five-set comeback means it survived a 3-2 match. Five-set matches give a team more opportunities to recover, so their presence can help explain why a conference has a higher overall comeback rate.\nThe chart describes an association rather than a cause. It does not show whether a conference produces more comebacks because of stronger serving, attacking, blocking, or coaching. It also excludes conferences with fewer than 90 matches, which makes the comparison more stable but means the chart does not represent every conference in the dataset."
   },
   {
     "objectID": "exploration.html#five-set-comeback-challenge",
@@ -88,6 +74,13 @@
     "href": "story.html#how-comeback-rates-change-with-match-length",
     "title": "The Story",
     "section": "How comeback rates change with match length",
-    "text": "How comeback rates change with match length\n\n\n\n\n\n\n\n\n\nThe line rises from three-set matches to four-set matches and then rises again for five-set matches. The counts printed beside each point add important context: the percentages describe how often comebacks happen, while the numerator and denominator show how much data supports each rate."
+    "text": "How comeback rates change with match length\n\nPlay\n\n\n\n\n\n\nThe line rises from three-set matches to four-set matches and then rises again for five-set matches. Click the play button to watch the trend build across the three match lengths, and notice how the labels show both the percentage and the number of comeback wins out of the total matches in each category."
+  },
+  {
+    "objectID": "story.html#a-case-study",
+    "href": "story.html#a-case-study",
+    "title": "The Story",
+    "section": "A Case Study",
+    "text": "A Case Study\n\n\nReal match from the NCAA dataset\n\n\nTexas Southern turned a first-set loss into a five-set win\n\n\n\nSouth Carolina State 2\n\n\n-\n\n\n3 Texas Southern\n\n\n\nAugust 30, 2019 | First set: South Carolina State 25, Texas Southern 21\n\n\nTexas Southern is a clear example of the comeback pattern in this project. After dropping the first set, the team had to win three of the next four sets to take the match. Because it was a five-set match, Texas Southern had more opportunities to adjust its serve receive, side-out offense, and blocking after the early deficit.\n\n\nThis is why the result matters beyond one box score. The data show that comebacks happened in 51.5% of five-set matches after a team lost Set 1. Texas Southern gives that percentage a real face: the match was not decided by the first set, and the longer format created room for a different response."
   }
 ]

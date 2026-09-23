@@ -116,15 +116,53 @@ a {
   color: var(--blue);
 }
 
+.site-hero {
+  background: linear-gradient(135deg, rgba(23, 107, 135, 0.12), rgba(16, 42, 67, 0.04));
+  border: 1px solid var(--line);
+  border-left: 8px solid var(--coral);
+  margin: 1.5rem 0 2rem;
+  padding: 1.5rem 1.5rem 1.2rem;
+}
+
+.eyebrow {
+  color: var(--blue);
+  font-family: "Trebuchet MS", Arial, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  margin: 0 0 0.75rem;
+  text-transform: uppercase;
+}
+
+.site-hero h2 {
+  border-bottom: none;
+  margin: 0 0 0.6rem;
+  padding-bottom: 0;
+}
+
+.site-hero h2::after {
+  display: none;
+}
+
+.hero-copy {
+  color: var(--muted);
+  font-size: 1.08rem;
+  margin-bottom: 0;
+}
+
 .summary-box {
   background: var(--navy);
   border-left: 8px solid var(--gold);
   border-radius: 0;
   box-shadow: 12px 12px 0 rgba(230, 106, 78, 0.15);
   color: #fffdf9;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   margin: 2rem 0;
   padding: 1.5rem 1.75rem;
+}
+
+.summary-box strong {
+  color: var(--gold);
 }
 
 .card-grid {
@@ -289,6 +327,85 @@ li::marker {
   margin-bottom: 2rem;
 }
 
+.case-study {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-left: 8px solid var(--coral);
+  box-shadow: 8px 8px 0 rgba(16, 42, 67, 0.1);
+  margin: 1.5rem 0 2rem;
+  padding: 1.5rem 1.75rem 1.25rem;
+}
+
+.case-study h3 {
+  margin-top: 0;
+}
+
+.case-study-label,
+.case-study-meta,
+.case-score small {
+  color: var(--muted);
+  font-family: "Trebuchet MS", Arial, sans-serif;
+}
+
+.case-study-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  margin: 0 0 0.55rem;
+  text-transform: uppercase;
+}
+
+.case-score {
+  align-items: center;
+  background: #f0eee7;
+  display: flex;
+  gap: 1.25rem;
+  justify-content: center;
+  margin: 1.25rem 0 0.75rem;
+  padding: 1rem;
+  text-align: center;
+}
+
+.case-score > div:not(.case-score-divider) {
+  display: grid;
+  gap: 0.2rem;
+  min-width: 9rem;
+}
+
+.case-team {
+  font-family: "Trebuchet MS", Arial, sans-serif;
+  font-weight: 700;
+}
+
+.case-team.winner,
+.case-score strong {
+  color: var(--blue);
+}
+
+.case-score strong {
+  font-family: "Trebuchet MS", Arial, sans-serif;
+  font-size: 2.4rem;
+  line-height: 1;
+}
+
+.case-score-divider {
+  color: var(--coral);
+  font-family: "Trebuchet MS", Arial, sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.case-score small {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+}
+
+.case-study-meta {
+  font-size: 0.86rem;
+  margin: 0 0 1.25rem;
+  text-align: center;
+}
+
 @media (max-width: 700px) {
   #quarto-content main {
     padding-top: 1.5rem;
@@ -309,6 +426,10 @@ li::marker {
   .team-score {
     min-width: 7rem;
   }
+
+  .case-study {
+    padding: 1.25rem;
+  }
 }
 
 @media (max-width: 420px) {
@@ -318,5 +439,18 @@ li::marker {
 
   .team-score {
     min-width: 5.8rem;
+  }
+
+  .case-score {
+    gap: 0.5rem;
+    padding: 0.75rem 0.4rem;
+  }
+
+  .case-score > div:not(.case-score-divider) {
+    min-width: 6.4rem;
+  }
+
+  .case-team {
+    font-size: 0.88rem;
   }
 }

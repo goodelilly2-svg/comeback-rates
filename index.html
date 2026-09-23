@@ -74,6 +74,15 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<link href="site_libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet">
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="site_libs/plotly-binding-4.12.1/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<script src="site_libs/jquery-3.5.1/jquery.min.js"></script>
+<link href="site_libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet">
+<script src="site_libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-2.25.2/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="site_libs/plotly-main-2.25.2/plotly-latest.min.js"></script>
 
 
 <link rel="stylesheet" href="styles.css">
@@ -125,9 +134,9 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#home" id="toc-home" class="nav-link active" data-scroll-target="#home">Home</a></li>
+  <li><a href="#total-attacks-by-match-outcome" id="toc-total-attacks-by-match-outcome" class="nav-link" data-scroll-target="#total-attacks-by-match-outcome">Total attacks by match outcome</a></li>
   <li><a href="#match-length-and-comeback-rates" id="toc-match-length-and-comeback-rates" class="nav-link" data-scroll-target="#match-length-and-comeback-rates">Match length and comeback rates</a></li>
-  <li><a href="#attack-totals-in-76756-matches" id="toc-attack-totals-in-76756-matches" class="nav-link" data-scroll-target="#attack-totals-in-76756-matches">Attack totals in 76,756 matches</a></li>
-  <li><a href="#what-the-data-say" id="toc-what-the-data-say" class="nav-link" data-scroll-target="#what-the-data-say">What the data say</a></li>
+  <li><a href="#what-this-tells-us" id="toc-what-this-tells-us" class="nav-link" data-scroll-target="#what-this-tells-us">What this tells us</a></li>
   </ul>
 </nav>
     </div>
@@ -161,28 +170,31 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="home" class="level2">
 <h2 class="anchored" data-anchor-id="home">Home</h2>
-<p>This site measures how often an NCAA volleyball team wins after losing the first set, then compares that result with attack totals from a larger beach-volleyball dataset.</p>
+<div class="site-hero">
+<p class="eyebrow">
+Volleyball analytics
+</p>
+<h2 class="anchored">
+Can a team win after losing the first set?
+</h2>
+<p class="hero-copy">
+This project looks at NCAA Division I volleyball through that question. It tracks how often a team recovers from an early deficit and connects that result to the longer story of match length and offensive totals.
+</p>
+</div>
+<p>This site measures how often an NCAA volleyball team wins after losing the first set and uses total attack volume to put that result in context. The big takeaway is simple: the comeback is possible, but it is much more common in longer matches.</p>
 <div class="summary-box">
-<p>Teams that lose the first set still win about 21.2% of NCAA Division I matches overall. Comeback chances rise dramatically as matches extend to four or five sets.</p>
+<p><strong>Short version:</strong> teams that lose set 1 still win about 21.2% of NCAA matches overall, and the comeback rate climbs to 33.2% in four-set matches and 51.5% in five-set matches.</p>
 </div>
-<div class="card-grid">
-<div class="card">
-<pre><code>&lt;strong&gt;21.2%&lt;/strong&gt;
-Overall comeback rate after losing set 1</code></pre>
-</div>
-<div class="card">
-<pre><code>&lt;strong&gt;0%&lt;/strong&gt;
-3-set matches</code></pre>
-</div>
-<div class="card">
-<pre><code>&lt;strong&gt;33.2%&lt;/strong&gt;
-4-set matches</code></pre>
-</div>
-<div class="card">
-<pre><code>&lt;strong&gt;51.5%&lt;/strong&gt;
-5-set matches</code></pre>
+</section>
+<section id="total-attacks-by-match-outcome" class="level2">
+<h2 class="anchored" data-anchor-id="total-attacks-by-match-outcome">Total attacks by match outcome</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-ca4fa23d819e9df60068" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-ca4fa23d819e9df60068">{"x":{"data":[{"orientation":"v","width":0.60000000000000009,"base":0,"x":[1],"y":[784123],"text":"Losing team: 784,123 attacks","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(230,106,78,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Losing team","legendgroup":"Losing team","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.59999999999999987,"base":0,"x":[2],"y":[757720],"text":"Winning team: 757,720 attacks","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(11,61,145,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Winning team","legendgroup":"Winning team","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":43.098381070983812,"r":7.9701120797011216,"b":24.707347447073481,"l":72.528019925280233},"paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":15.940224159402243},"title":{"text":"<b> Total attacks by match outcome <\/b>","font":{"color":"rgba(0,0,0,1)","family":"","size":19.128268991282692},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,2.6000000000000001],"tickmode":"array","ticktext":["Losing team","Winning team"],"tickvals":[1,2],"categoryorder":"array","categoryarray":["Losing team","Winning team"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.9850560398505608,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":12.7521793275218},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.72455564360919278,"zeroline":false,"anchor":"y","title":{"text":"","font":{"color":"rgba(0,0,0,1)","family":"","size":15.940224159402243}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-39206.150000000001,823329.15000000002],"tickmode":"array","ticktext":["0","200,000","400,000","600,000","800,000"],"tickvals":[0,199999.99999999997,399999.99999999994,600000,800000],"categoryorder":"array","categoryarray":["0","200,000","400,000","600,000","800,000"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.9850560398505608,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":12.7521793275218},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.72455564360919278,"zeroline":false,"anchor":"x","title":{"text":"Total attacks","font":{"color":"rgba(0,0,0,1)","family":"","size":15.940224159402243}},"hoverformat":".2f"},"shapes":[],"showlegend":false,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":12.7521793275218}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"displayModeBar":false},"source":"A","attrs":{"5b17e6f4dbe":{"x":{},"y":{},"fill":{},"text":{},"type":"bar"}},"cur_data":"5b17e6f4dbe","visdat":{"5b17e6f4dbe":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
+<p>Across the full comparison dataset, the winning team recorded 757,720 total attacks while the losing team recorded 784,123. The chart shows the overall scale of attack volume by match outcome, even though attack totals alone do not explain the final result.</p>
 </section>
 <section id="match-length-and-comeback-rates" class="level2">
 <h2 class="anchored" data-anchor-id="match-length-and-comeback-rates">Match length and comeback rates</h2>
@@ -221,24 +233,11 @@ Overall comeback rate after losing set 1</code></pre>
 </div>
 </div>
 </section>
-<section id="attack-totals-in-76756-matches" class="level2">
-<h2 class="anchored" data-anchor-id="attack-totals-in-76756-matches">Attack totals in 76,756 matches</h2>
-<p>The plot below uses the same 76,756-match beach-volleyball dataset as the Exploration tab. Each cell counts matches with a given combination of winner and loser attack totals. The dashed line marks equal totals: cells above it are matches where the loser recorded more attacks than the winner.</p>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="what-the-data-say" class="level2">
-<h2 class="anchored" data-anchor-id="what-the-data-say">What the data say</h2>
-<p>Among the NCAA matches in this project, 21.2% ended in a comeback after a team lost the first set. Match length explains most of the headline difference: three-set matches cannot contain a comeback, while the rate is 33.2% in four-set matches and 51.5% in five-set matches.</p>
-<p>The attack plot answers a different question. It shows that winners and losers often finish with similar attack totals, but it does not measure comeback rates or prove that more attacks cause a win. It comes from beach volleyball, whereas the comeback analysis uses NCAA volleyball matches, so the two plots should be read as separate evidence rather than combined into one result.</p>
-<p>The denominators matter: the NCAA table contains 230 three-set matches, 152 four-set matches, and 100 five-set matches. The percentages describe this sample; they are not a causal estimate of what makes a team recover.</p>
+<section id="what-this-tells-us" class="level2">
+<h2 class="anchored" data-anchor-id="what-this-tells-us">What this tells us</h2>
+<p>Among the NCAA matches in this project, 21.2% ended in a comeback after a team lost the first set. Match length explains most of the headline difference: three-set matches cannot contain a comeback, while the rate rises to 33.2% in four-set matches and 51.5% in five-set matches.</p>
+<p>The total-attacks chart helps connect the big-picture story to the comeback question. In the broader comparison data, the winning team recorded 757,720 attacks and the losing team recorded 784,123, which suggests that attack volume is high in many matches regardless of the final result. That makes sense for volleyball: even teams that lose can still generate a large number of attacks, especially in longer matches where the score remains competitive. This means more attacks are not the same as a higher comeback rate, but they do show that the match often stays open long enough for momentum to shift.</p>
+<p>The NCAA comeback analysis remains the clearest evidence in this project. A longer match gives a trailing team more chances to adjust, recover, and eventually win, while attack totals alone describe the flow of the game rather than the probability of a comeback itself. The denominators matter here as well: the NCAA table contains 230 three-set matches, 152 four-set matches, and 100 five-set matches. These percentages describe this sample and should be interpreted as an observed pattern, not as a causal estimate of what makes a team recover.</p>
 
 
 </section>

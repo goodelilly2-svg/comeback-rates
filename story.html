@@ -126,6 +126,7 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#my-story" id="toc-my-story" class="nav-link active" data-scroll-target="#my-story">My story</a></li>
   <li><a href="#how-comeback-rates-change-with-match-length" id="toc-how-comeback-rates-change-with-match-length" class="nav-link" data-scroll-target="#how-comeback-rates-change-with-match-length">How comeback rates change with match length</a></li>
+  <li><a href="#a-case-study" id="toc-a-case-study" class="nav-link" data-scroll-target="#a-case-study">A Case Study</a></li>
   </ul>
 </nav>
     </div>
@@ -165,16 +166,151 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="how-comeback-rates-change-with-match-length" class="level2">
 <h2 class="anchored" data-anchor-id="how-comeback-rates-change-with-match-length">How comeback rates change with match length</h2>
-<div class="cell">
-<div class="cell-output-display">
+<div class="plot-controls" style="margin-bottom: 0.75rem;">
+<p><button id="play-length-animation" type="button">Play</button></p>
+</div>
+<div id="match-length-plot" style="height: 420px;">
+
+</div>
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<script>
+const matchLengthData = {
+  x: [3, 4, 5],
+  y: [0, 33.2, 51.5],
+  labels: [
+    "0%<br>0 of 230",
+    "33.2%<br>50 of 152",
+    "51.5%<br>52 of 100"
+  ]
+};
+
+const trace = {
+  x: [3],
+  y: [0],
+  mode: "lines+markers",
+  line: { color: "#0b3d91", width: 3 },
+  marker: { color: "#0b3d91", size: 8 },
+  text: ["0%<br>0 of 230"],
+  hovertemplate: "%{text}<extra></extra>",
+  showlegend: false
+};
+
+const layout = {
+  title: { text: "Comeback Rates Increase as Matches Get Longer" },
+  xaxis: {
+    title: "Number of sets played",
+    tickvals: [3, 4, 5],
+    range: [2.5, 5.5],
+    fixedrange: true
+  },
+  yaxis: {
+    title: "Comeback rate after losing Set 1",
+    range: [0, 55],
+    tickformat: ".0f",
+    ticksuffix: "%",
+    fixedrange: true
+  },
+  margin: { t: 55, r: 20, b: 55, l: 55 },
+  annotations: [{
+    x: 0.5,
+    y: 1.12,
+    xref: "paper",
+    yref: "paper",
+    text: "Click play to watch the rate rise from 3-set to 5-set matches",
+    showarrow: false,
+    xanchor: "center",
+    yanchor: "bottom",
+    font: { size: 11, color: "#5d6b7b" }
+  }],
+  paper_bgcolor: "rgba(0,0,0,0)",
+  plot_bgcolor: "rgba(0,0,0,0)"
+};
+
+Plotly.newPlot("match-length-plot", [trace], layout, {
+  displayModeBar: false,
+  responsive: true
+});
+
+const playButton = document.getElementById("play-length-animation");
+
+playButton.addEventListener("click", async () => {
+  playButton.disabled = true;
+
+  const smoothPoints = [
+    { x: 3, y: 0 },
+    { x: 3.5, y: 16.6 },
+    { x: 4, y: 33.2 },
+    { x: 4.5, y: 42.35 },
+    { x: 5, y: 51.5 }
+  ];
+
+  const smoothLabels = [
+    "0%<br>0 of 230",
+    "16.6%<br>25 of 152",
+    "33.2%<br>50 of 152",
+    "42.4%<br>42 of 100",
+    "51.5%<br>52 of 100"
+  ];
+
+  const frames = smoothPoints.map((point, index) => ({
+    x: smoothPoints.slice(0, index + 1).map(p => p.x),
+    y: smoothPoints.slice(0, index + 1).map(p => p.y),
+    text: smoothLabels.slice(0, index + 1)
+  }));
+
+  for (let i = 0; i < frames.length; i++) {
+    const frame = frames[i];
+    await new Promise((resolve) => {
+      Plotly.animate(
+        "match-length-plot",
+        { data: [{ x: frame.x, y: frame.y, text: frame.text }] },
+        {
+          transition: { duration: 1200, easing: "cubic-in-out" },
+          frame: { duration: 1200, redraw: true },
+          mode: "afterall"
+        }
+      );
+      setTimeout(resolve, 1200);
+    });
+  }
+
+  playButton.disabled = false;
+});
+
+window.addEventListener("resize", () => Plotly.Plots.resize("match-length-plot"));
+</script>
+<p>The line rises from three-set matches to four-set matches and then rises again for five-set matches. Click the play button to watch the trend build across the three match lengths, and notice how the labels show both the percentage and the number of comeback wins out of the total matches in each category.</p>
+</section>
+<section id="a-case-study" class="level2">
+<h2 class="anchored" data-anchor-id="a-case-study">A Case Study</h2>
+<div class="case-study">
+<p class="case-study-label">
+Real match from the NCAA dataset
+</p>
+<h3 class="anchored">
+Texas Southern turned a first-set loss into a five-set win
+</h3>
+<div class="case-score">
 <div>
-<figure class="figure">
-<p><img src="story_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
+<pre><code>South Carolina State 2</code></pre>
+</div>
+<div class="case-score-divider">
+-
+</div>
+<div>
+<pre><code>3 Texas Southern</code></pre>
 </div>
 </div>
+<p class="case-study-meta">
+August 30, 2019 | First set: South Carolina State 25, Texas Southern 21
+</p>
+<p>
+Texas Southern is a clear example of the comeback pattern in this project. After dropping the first set, the team had to win three of the next four sets to take the match. Because it was a five-set match, Texas Southern had more opportunities to adjust its serve receive, side-out offense, and blocking after the early deficit.
+</p>
+<p>
+This is why the result matters beyond one box score. The data show that comebacks happened in 51.5% of five-set matches after a team lost Set 1. Texas Southern gives that percentage a real face: the match was not decided by the first set, and the longer format created room for a different response.
+</p>
 </div>
-<p>The line rises from three-set matches to four-set matches and then rises again for five-set matches. The counts printed beside each point add important context: the percentages describe how often comebacks happen, while the numerator and denominator show how much data supports each rate.</p>
 
 
 </section>
